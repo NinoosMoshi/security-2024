@@ -52,6 +52,7 @@ onSubmit(){
       this.router.navigateByUrl("/login")
     },
     error:err =>{
+      console.log(err)
       this.snackBar.open('Sign up faild. Please try again.', 'Close', { duration: 5000, panelClass: 'error-snackbar' });
     }
   })

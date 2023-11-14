@@ -36,7 +36,7 @@ public class AuthServiceImpl implements AuthService{
 
 
     @Override
-    public String register(RegisterDTO registerDTO) {
+    public void register(RegisterDTO registerDTO) {
 
         // check if username is exists in database
         if(userRepository.existsByUsername(registerDTO.getUsername())){
@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService{
 
         userRepository.save(user);
 
-        return "User Registered Successfully";
+//        return "Customer Registered Successfully";
     }
 
 

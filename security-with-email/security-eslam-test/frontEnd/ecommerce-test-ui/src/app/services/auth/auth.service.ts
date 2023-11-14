@@ -22,25 +22,6 @@ export class AuthService {
 
 
 
-  // http://localhost:8080/api/v1/auth/login
-  // login(username:string, password:string): any{
-  //   const headers = new HttpHeaders().set('Content-Type', 'application/json');
-  //   const body = {username, password};
-
-  //   return this.http.post<any>(`${this.BASE_URL}/login`,body,  { headers, observe: 'response' }).pipe(
-  //     map(res =>{
-  //       const token = res.headers.get('authorization')?.substring(7);
-  //       const user = res.body;
-  //       if(token && user){
-  //         this.userStorageService.saveToken(token);
-  //         this.userStorageService.saveUser(user);
-  //         return true;
-  //       }
-  //       return false;
-  //     })
-  //   )
-
-  // }
 
   login(usernameOrEmail: string, password: string): Observable<any> {
     const credentials = { usernameOrEmail, password };
@@ -66,7 +47,9 @@ export class AuthService {
   }
 
 
-
+  userActive(usernameOrEmail: string, password: string): Observable<any>{
+    return this.http.post<any>(`${this.BASE_URL}/active`, { usernameOrEmail, password });
+ }
 
 
 

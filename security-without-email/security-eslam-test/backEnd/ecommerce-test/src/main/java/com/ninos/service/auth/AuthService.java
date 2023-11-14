@@ -6,7 +6,7 @@ import com.ninos.model.dto.RegisterDTO;
 
 public interface AuthService {
 
-    String register(RegisterDTO registerDTO);
+    void register(RegisterDTO registerDTO);
     JwtAuthResponse login(LoginDTO loginDTO);
 
 }

@@ -44,5 +44,9 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
 
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="code_id")
+    private Code code;
+
 
 }

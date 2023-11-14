@@ -21,10 +21,17 @@ public class AuthController {
 
     private final AuthService authService;
 
+//    @PostMapping("/register")
+//    public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
+//        String response = authService.register(registerDTO);
+//        return new ResponseEntity<>(response, HttpStatus.CREATED);
+//    }
+
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
-        String response = authService.register(registerDTO);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO){
+        authService.register(registerDTO);
+//        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 

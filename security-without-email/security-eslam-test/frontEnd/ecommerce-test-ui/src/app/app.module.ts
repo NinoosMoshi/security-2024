@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DemoAngularMaterialModules } from './DemoAngularMaterialModules';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component'
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [

@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DemoAngularMaterialModules } from './DemoAngularMaterialModules';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component'
+import { SignupComponent } from './signup/signup.component';
+import { CodeActivationComponent } from './code-activation/code-activation.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
+    CodeActivationComponent,
 
   ],
   imports: [

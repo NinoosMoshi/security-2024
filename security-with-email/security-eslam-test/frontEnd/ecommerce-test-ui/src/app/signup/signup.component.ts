@@ -39,6 +39,7 @@ this.hidePassword = !this.hidePassword;
 
 
 onSubmit(){
+  const email = this.signupForm.get('email')?.value;
   const password = this.signupForm.get('password')?.value;
   const confirmPassword = this.signupForm.get('confirmPassword')?.value;
 
@@ -46,10 +47,17 @@ onSubmit(){
     this.snackBar.open('Passwords do not match.', 'Close', { duration: 5000, panelClass: 'error-snackbar' });
     return;
   }
+
   this.authService.register(this.signupForm.value).subscribe({
     next:res =>{
-      this.snackBar.open('Sign up successful!.', 'Close', { duration: 5000 });
-      this.router.navigateByUrl("/login")
+      if(res.result == 1){
+        sessionStorage.setItem("emailAtive",email);
+        this.snackBar.open('Sign up successful!.', 'Close', { duration: 5000 });
+        this.router.navigateByUrl("/active-code")
+      }else{
+        alert("email is exists")
+      }
+
     },
     error:err =>{
       this.snackBar.open('Sign up faild. Please try again.', 'Close', { duration: 5000, panelClass: 'error-snackbar' });

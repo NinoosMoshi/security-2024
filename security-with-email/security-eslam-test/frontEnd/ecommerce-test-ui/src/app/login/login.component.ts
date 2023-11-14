@@ -40,27 +40,37 @@ onSubmit(){
   const password = this.loginForm.get('password')?.value;
 
 
+  this.authService.userActive(username,password).subscribe({
+    next:res =>{
+      let ac = res.active;
+      if(ac == 1){
+        this.authService.login(username, password).subscribe({
+          next: res =>{
 
-
-  this.authService.login(username, password).subscribe({
-    next: res =>{
-
-      if(UserStorageService.isAdminLoggedIn()){
-        this.router.navigateByUrl("/admin/dashboard")
+             if(UserStorageService.isAdminLoggedIn()){
+                this.router.navigateByUrl("/admin/dashboard")
+              }
+              else if(UserStorageService.isCustomerLoggedIn()){
+                this.router.navigateByUrl("/customer/dashboard")
+              }
+          },
+          error: err =>{
+            this.snackBar.open('Bad credentials.', 'ERROR', { duration: 5000});
+          }
+  })
       }
-      else if(UserStorageService.isCustomerLoggedIn()){
-        this.router.navigateByUrl("/customer/dashboard")
+      else if(ac == 0){
+          this.router.navigateByUrl("/active-code")
       }
+      else{
+        alert("Invalid Credentails")
+      }
+
     },
-    error: err =>{
-      this.snackBar.open('Bad credentials.', 'ERROR', { duration: 5000});
+    error:err =>{
+
     }
   })
-
-
-
-
-
 
 
  }
