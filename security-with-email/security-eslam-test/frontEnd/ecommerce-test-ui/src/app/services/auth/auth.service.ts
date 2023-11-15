@@ -49,8 +49,12 @@ export class AuthService {
 
   userActive(usernameOrEmail: string, password: string): Observable<any>{
     return this.http.post<any>(`${this.BASE_URL}/active`, { usernameOrEmail, password });
- }
+  }
 
+
+  activeAccount(usernameOrEmail: string, code: string): Observable<any>{
+    return this.http.post<any>(`${this.BASE_URL}/activated`, { usernameOrEmail, code });
+  }
 
 
 

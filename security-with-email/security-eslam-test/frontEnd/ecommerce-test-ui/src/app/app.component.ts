@@ -27,6 +27,7 @@ export class AppComponent {
 
   logout(){
     UserStorageService.signOut();
+    sessionStorage.removeItem("emailAtive")
     this.router.navigateByUrl("/login");
   }
 
