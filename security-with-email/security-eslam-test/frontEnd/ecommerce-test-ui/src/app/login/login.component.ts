@@ -60,6 +60,7 @@ onSubmit(){
   })
       }
       else if(ac == 0){
+          sessionStorage.setItem("emailAtive",username);
           this.router.navigateByUrl("/active-code")
       }
       else{

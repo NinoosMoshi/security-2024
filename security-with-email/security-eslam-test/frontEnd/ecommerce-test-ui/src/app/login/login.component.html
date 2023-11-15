@@ -5,8 +5,8 @@
        <form [formGroup]="loginForm">
 
         <mat-form-field appearance="outline">
-          <mat-label>E-mail</mat-label>
-          <input matInput formControlName="email" placeholder="Email" required>
+          <mat-label>Username Or Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter Username Or email" required>
           <mat-error *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
              Please enter a valid email.
           </mat-error>
