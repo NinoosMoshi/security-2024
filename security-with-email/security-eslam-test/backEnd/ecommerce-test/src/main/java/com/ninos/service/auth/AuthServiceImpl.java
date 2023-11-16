@@ -21,7 +21,9 @@ import com.ninos.model.dto.AccountResponse;
 import com.ninos.model.dto.ActiveAccount;
 import com.ninos.model.dto.JwtAuthResponse;
 import com.ninos.model.dto.LoginDTO;
+import com.ninos.model.dto.LoginResponse;
 import com.ninos.model.dto.Mail;
+import com.ninos.model.dto.NewPassword;
 import com.ninos.model.dto.RegisterDTO;
 import com.ninos.model.dto.UserActive;
 import com.ninos.model.entity.Code;
@@ -125,18 +127,6 @@ public class AuthServiceImpl implements AuthService{
 
 
 
-//    @Transactional  // we add @Transactional to manage our session
-//    @Override
-//    public int getUserActive(String username, String email){
-//        return userRepository.getActiveByUsernameOrEmail(username, email);
-//    }
-
-//    @Transactional
-//    @Override
-//    public String getPasswordByUsernameOrEmail(String username,String email) {
-//        return userRepository.getPasswordByUsernameOrEmail(username, email);
-//    }
-
     @Transactional
     @Override
     public UserActive getUserActive(LoginDTO loginDTO) {
@@ -182,14 +172,51 @@ public class AuthServiceImpl implements AuthService{
     }
 
 
+    @Override
+    public AccountResponse checkEmail(LoginResponse loginResponse) {
+        AccountResponse accountResponse = new AccountResponse();
+
+        User user = userRepository.findByEmail(loginResponse.getEmail()).orElseThrow(() -> new RuntimeException("user not found with email: " + loginResponse.getEmail()));
+        if(user != null){
+            String myCode = UserCode.getCode();
+            Mail mail = new Mail(loginResponse.getEmail(), myCode);
+            emailService.sendCodeByMail(mail);
+            user.getCode().setCode(myCode);
+            userRepository.save(user);
+            accountResponse.setResult(1);
+
+        }else{
+            accountResponse.setResult(0);
+        }
+
+        return accountResponse;
+    }
 
 
 
+    @Override
+    public AccountResponse resetPassword(NewPassword newPassword) {
 
-//    @Override
-//    public User editUser(User user) {
-//        return userRepository.save(user);
-//    }
+        AccountResponse accountResponse = new AccountResponse();
+        User user = userRepository.findByEmail(newPassword.getEmail()).orElseThrow(() -> new RuntimeException("user not found with email: " + newPassword.getEmail()));
+
+        if(user != null){
+             if(user.getCode().getCode().equals(newPassword.getCode())){
+                user.setPassword(passwordEncoder.encode(newPassword.getPassword()));
+                userRepository.save(user);
+                accountResponse.setResult(1);
+             }else{
+                 accountResponse.setResult(0);
+             }
+        }
+        else{
+          accountResponse.setResult(0);
+        }
+
+        return accountResponse;
+    }
+
+
 
 
 }

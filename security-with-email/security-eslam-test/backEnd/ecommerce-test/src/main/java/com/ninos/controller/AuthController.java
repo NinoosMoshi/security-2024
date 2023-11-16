@@ -14,7 +14,9 @@ import com.ninos.model.dto.AccountResponse;
 import com.ninos.model.dto.ActiveAccount;
 import com.ninos.model.dto.JwtAuthResponse;
 import com.ninos.model.dto.LoginDTO;
+import com.ninos.model.dto.LoginResponse;
 import com.ninos.model.dto.Mail;
+import com.ninos.model.dto.NewPassword;
 import com.ninos.model.dto.RegisterDTO;
 import com.ninos.model.dto.UserActive;
 import com.ninos.model.entity.User;
@@ -54,6 +56,19 @@ public class AuthController {
     public AccountResponse activeAccountUser(@RequestBody ActiveAccount activeAccount){
         return authService.activeAccount(activeAccount);
     }
+
+
+    @PostMapping("/check-email")
+    public AccountResponse checkEmailUser(@RequestBody LoginResponse loginResponse){
+       return authService.checkEmail(loginResponse);
+    }
+
+    @PostMapping("/reset-password")
+    public AccountResponse resetPassword(@RequestBody NewPassword newPassword){
+        return authService.resetPassword(newPassword);
+    }
+
+
 
 
 //    @PostMapping("/activated")
