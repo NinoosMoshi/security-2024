@@ -58,6 +58,18 @@ export class AuthService {
 
 
 
+  checkEmail(email:string):Observable<any>{
+    return this.http.post<any>(`${this.BASE_URL}/check-email`,{email});
+  }
+
+
+  resetPassword(email:string, password:string, code:string):Observable<any>{
+    const newPassword = { email, password, code };
+    return this.http.post<any>(`${this.BASE_URL}/reset-password`,newPassword);
+  }
+
+
+
 
 
 
